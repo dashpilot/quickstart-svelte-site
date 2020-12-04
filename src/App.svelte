@@ -31,13 +31,14 @@ window.shareData = function(mydata){
   data = mydata;
 }
 
-
+/*
 $: updatePage($url.pathname);
 
 function updatePage($url.pathname){
   window.config.page = $url.pathname.replace('/', '');
   console.log(window.config.page);
 }
+*/
 
 
 </script>
