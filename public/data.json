@@ -1,0 +1,24 @@
+{
+  "entries": [{
+    "id": "item-1",
+    "title": "Saving this",
+    "body": "With some updated text",
+    "image": "",
+    "page": "home"
+  }, {
+    "id": "item-2",
+    "page": "home",
+    "title": "Second post",
+    "body": "<p>Lorem ipsum dolor site amet</p>",
+    "image": ""
+  }, {
+    "id": "item-3",
+    "title": "Lorem Lila",
+    "body": " <p>Lorem ipsum dolor site amet</p>",
+    "image": "",
+    "page": "about"
+  }, {
+    "id": "header",
+    "title": "Welcome to my site"
+  }]
+}

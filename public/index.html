@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+
+	<title>Svelte Site</title>
+
+	<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+	<link rel='icon' type='image/png' href='/favicon.png'>
+	<link rel='stylesheet' href='/global.css'>
+
+	<script>
+		config = {};
+		config.basePath = 'https://editscreen-shared-data.vercel.app/';
+		config.dataPath = 'data.json';
+	</script>
+
+	<link rel='stylesheet' href='/build/bundle.css'>
+	<script defer src='/build/bundle.js'></script>
+
+	<!-- CMS -->
+	<script defer src='https://editscreen-shared-data.vercel.app/build/bundle.js'></script>
+	<link rel='stylesheet' href='https://editscreen-shared-data.vercel.app/build/bundle.css'>
+
+</head>
+
+<body>
+
+	<div id="page-editor"></div>
+</body>
+
+</html>
