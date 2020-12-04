@@ -33,18 +33,15 @@ window.shareData = function(mydata){
 
 afterUpdate(async function() {
 
-  window.config.page = $url.pathname.replace('/', '');
-  console.log(window.config.page);
+  // listen for page change
+  var curPage = $url.pathname.replace('/', '');
+  if(curPage==''){
+    curPage = 'home';
+  }
+  window.config.page = curPage;
+
 })
 
-/*
-$: updatePage($url.pathname);
-
-function updatePage($url.pathname){
-  window.config.page = $url.pathname.replace('/', '');
-  console.log(window.config.page);
-}
-*/
 </script>
 
 {#if data.entries.length > 0}
