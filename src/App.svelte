@@ -17,7 +17,7 @@ data.entries = [];
 
 onMount(async function() {
 
-  const response = await fetch(config.dataPath + '?i=' + Date.now(), {
+  const response = await fetch(window.config.dataPath + '?i=' + Date.now(), {
     method: 'get'
   });
   data = await response.json();
