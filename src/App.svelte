@@ -4,6 +4,7 @@
   export function setSsrHref(v) {
     url.ssrSet(v)
     window.config.page = v;
+    console.log(window.config.page);
   }
 </script>
 
