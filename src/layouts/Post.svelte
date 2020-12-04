@@ -2,7 +2,7 @@
 export let item;
 </script>
 
-<section class="editable" data-fields="title=txt&amp;body=rte&amp;delete=del" id="{item.id}">
+<section class="editable" data-fields="title=txt&amp;body=rte&amp;image=img&amp;delete=del" id="{item.id}">
 <h2>{item.title}</h2>
 
 {#if item.body}
@@ -10,6 +10,13 @@ export let item;
   {:else}
   <p>Lorem ipsum dolor site amet</p>
 {/if}
+
+{#if item.image}
+<img src="{item.image}" alt="placeholder" />
+{:else}
+<img src="assets/img/placeholder.jpg" alt="placeholder" />
+{/if}
+
 <!--
 {#if item.images[0]}
   {#each item.images as img, i}
