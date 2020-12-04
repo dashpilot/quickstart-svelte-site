@@ -4,7 +4,12 @@ export let item;
 
 <section class="editable" data-fields="title=txt&amp;body=rte" id="{item.id}">
 <h2>{item.title}</h2>
-<p>{@html item.body}</p>
+
+{#if item.body}
+  <p>{@html item.body}</p>
+  {:else}
+  <p>Lorem ipsum dolor site amet</p>
+{/if}
 <!--
 {#if item.images[0]}
   {#each item.images as img, i}
