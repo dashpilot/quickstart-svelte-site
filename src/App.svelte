@@ -3,13 +3,11 @@
   import url from './url'
   export function setSsrHref(v) {
     url.ssrSet(v)
-    window.config.page = v;
-    console.log(window.config.page);
   }
 </script>
 
 <script>
-import  { onMount  } from "svelte";
+import  { onMount, afterUpdate  } from "svelte";
 import Header from "./layouts/Header.svelte";
 import Nav from "./layouts/Nav.svelte";
 import Post from "./layouts/Post.svelte";
@@ -32,6 +30,12 @@ onMount(async function() {
 window.shareData = function(mydata){
   data = mydata;
 }
+
+afterUpdate(async function() {
+
+  window.config.page = $url.pathname.replace('/', '');
+  console.log(window.config.page);
+})
 
 /*
 $: updatePage($url.pathname);
