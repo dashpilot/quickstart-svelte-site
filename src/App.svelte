@@ -31,6 +31,15 @@ window.shareData = function(mydata){
   data = mydata;
 }
 
+
+$: updatePage($url.pathname);
+
+function updatePage($url.pathname){
+  window.config.page = $url.pathname.replace('/', '');
+  console.log(window.config.page);
+}
+
+
 </script>
 
 {#if data.entries.length > 0}
@@ -45,13 +54,11 @@ window.shareData = function(mydata){
 
 	{#if $url.pathname === '/'}
 
-
 		{#each data.entries as item}
 			{#if item.page == 'home'}
 					<Post bind:item />
 			{/if}
 		{/each}
-
 
 	{:else if $url.pathname === '/about'}
 
