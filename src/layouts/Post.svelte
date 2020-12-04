@@ -2,7 +2,7 @@
 export let item;
 </script>
 
-<section class="editable" data-fields="title=txt&amp;body=rte" id="{item.id}">
+<section class="editable" data-fields="title=txt&amp;body=rte&amp;delete=del" id="{item.id}">
 <h2>{item.title}</h2>
 
 {#if item.body}
