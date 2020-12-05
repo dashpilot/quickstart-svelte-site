@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    .form-control {
+      margin-bottom: 10px;
+    }
+
+    .backdrop-white {
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .window {
+      width: 360px;
+      min-height: 300px;
+      background-color: white;
+      margin: 0 auto;
+      margin-top: 100px;
+      z-index: 999;
+      padding: 20px;
+      border-radius: 4px;
+    }
+
+    .spinner-border {
+      display: none;
+    }
+
+    .content {
+      display: none;
+    }
+  </style>
+
+  <script type="text/javascript" src="https://sdk.userbase.com/2/userbase.js"></script>
+</head>
+
+<body>
+
+  <div class="backdrop backdrop-white">
+    <div class="window">
+
+      <div class="card">
+        <div class="card-body">
+
+          <div id="login" class="content">
+            <div class="text-center mb-4">
+              <h5 class="card-title">Sign In</h5>
+            </div>
+
+            <div id="login-error" class="error"></div>
+            <input id="login-username" type="text" placeholder="username" class="form-control" bind:value={username} />
+            <input id="login-password" type="password" placeholder="password" class="form-control" bind:value={password} />
+            <button class="btn btn-primary w-100" id="sign-in">
+              <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span> Sign In
+            </button>
+          </div>
+
+
+          <div id="logout" class="content">
+            <div class="text-center mb-4">
+              <h5 class="card-title">Sign Out</h5>
+            </div>
+
+            <button class="btn btn-primary w-100" id="sign-out">
+              <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span> Sign Out
+            </button>
+          </div>
+
+
+          <div id="loading" class="text-center">
+
+            <span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true" style="display: inline-block;"></span>
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--
+  <div class="backdrop backdrop-white" transition:fade="{{duration: 500 }}">
+    <div class="window">
+
+    <div class="card">
+      <div class="card-body">
+    <div id="register" class="content">
+
+      <h5 class="card-title">Create an account</h5>
+
+      <div id="signup-error" class="error" />
+
+      <div class="input-group mb-2">
+        <input
+          id="signup-username"
+          type="text"
+          placeholder="username"
+          class="form-control"
+          bind:value={username}
+          on:keyup={slugify} />
+        <div class="input-group-append">
+          <span class="input-group-text" style="height: 38px;">
+            .sitefiction.me
+          </span>
+        </div>
+      </div>
+
+      <input
+        id="signup-email"
+        type="email"
+        placeholder="email"
+        class="form-control"
+        bind:value={email} />
+      <input
+        id="signup-password"
+        type="password"
+        placeholder="password"
+        class="form-control"
+        bind:value={password} />
+      <button class="btn btn-outline-dark" on:click={signUp}>
+        {#if loading}
+          <i class="fa fa-spinner fa-spin" />
+        {/if}
+        Sign Up
+      </button>
+
+      <br />
+      <br />
+      <div
+        class="switch text-center"
+        on:click={() => ((showRegister = false), (showSignin = true))}>
+        Already have an account? <u>Sign In</u>
+      </div>
+    </div>
+
+
+          </div>
+        </div>
+
+        </div>
+      </div>
+-->
+
+  <script>
+    config = {};
+    config.appId = 'ac1c771e-cae2-4fae-b559-312cd95b5d76';
+    userbase
+      .init({
+        appId: config.appId,
+      })
+      .then(function(session) {
+
+        document.querySelector('#loading').style.display = 'none';
+
+        if (typeof session.user !== 'undefined') {
+          document.querySelector('#login').style.display = 'none';
+          document.querySelector('#logout').style.display = 'block';
+          sessionStorage.setItem('loggedIn', true);
+        } else {
+          document.querySelector('#logout').style.display = 'none';
+          document.querySelector('#login').style.display = 'block';
+          sessionStorage.removeItem('loggedIn');
+        }
+
+      });
+
+
+    document.querySelector('#sign-in').addEventListener('click', function() {
+      signIn();
+    });
+
+    document.querySelector('#sign-out').addEventListener('click', function() {
+      signOut();
+    });
+
+    function signIn() {
+      const username = document.querySelector('#login-username').value;
+      const password = document.querySelector('#login-password').value;
+
+      document.querySelector('.spinner-border').style.display = 'inline-block';
+
+      userbase
+        .signIn({
+          username,
+          password,
+          rememberMe: 'session'
+        })
+        .then(function(myuser) {
+          document.querySelector('.spinner-border').style.display = 'none';
+          sessionStorage.setItem('loggedIn', true);
+          window.location.href = "../";
+        })
+        .catch(function(e) {
+          sessionStorage.removeItem('loggedIn');
+          document.querySelector('.spinner-border').style.display = 'none';
+          let error = e.toString().split(': ')[1]
+          document.getElementById('login-error').innerHTML =
+            '<div class="alert alert-danger">' + error + '</div>'
+        })
+    }
+
+
+    function signOut() {
+      userbase.signOut()
+      document.querySelector('#login').style.display = 'block';
+      document.querySelector('#logout').style.display = 'none';
+      sessionStorage.removeItem('loggedIn');
+      window.location.href = "../";
+    }
+
+    /*
+        function signUp() {
+          loading = true
+
+          userbase
+            .signUp({ username, password, email, rememberMe: 'session' })
+            .then(function(myuser) {
+              showSignout = true
+              showSignin = false
+              showRegister = false
+
+              openDB()
+              loggedIn = true
+
+
+              loading = false
+
+              location.reload()
+            })
+            .catch(function(e) {
+              let error = e.toString().split(': ')[1]
+              document.getElementById('signup-error').innerHTML =
+                '<div class="alert alert-danger">' + error + '</div>'
+              loading = false
+            })
+        }
+
+        function slugify() {
+          username = username
+            .toString()
+            .toLowerCase()
+            .replace(/\s+/g, '-') // Replace spaces with -
+            .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+            .replace(/\-\-+/g, '-') // Replace multiple - with single -
+            .replace(/^-+/, '') // Trim - from start of text
+        }
+        */
+  </script>
+
+</body>
+
+</html>
