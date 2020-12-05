@@ -11,7 +11,6 @@ import  { onMount, afterUpdate  } from "svelte";
 import Header from "./layouts/Header.svelte";
 import Nav from "./layouts/Nav.svelte";
 import Post from "./layouts/Post.svelte";
-import Login from "./Login.svelte";
 
 let data = [];
 data.entries = [];
@@ -70,9 +69,6 @@ afterUpdate(async function() {
 				<Post bind:item />
 			{/if}
 		{/each}
-  {:else if $url.pathname === '/login'}
-
-  <Login />
 
 	{:else}
 
