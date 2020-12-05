@@ -8,7 +8,7 @@
 
 <script>
 import  { onMount, afterUpdate  } from "svelte";
-import {fade} from "svelte/transitions";
+import {fade} from "svelte/transition";
 import Header from "./layouts/Header.svelte";
 import Nav from "./layouts/Nav.svelte";
 import Post from "./layouts/Post.svelte";
@@ -45,8 +45,8 @@ afterUpdate(async function() {
 
 </script>
 
-{#if data.entries > 0}
-<div in:fade="{{duration: 500}}">
+{#if data.entries.length > 0}
+<div in:fade="{{duration: 1000}}">
 
 {#if data.entries.length > 0}
 
