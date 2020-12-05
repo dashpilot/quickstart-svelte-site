@@ -45,7 +45,7 @@ afterUpdate(async function() {
 
 </script>
 
-{#if data.entries.length > 0}
+{#if data.entries > 0}
 <div in:fade="{{duration: 500}}">
 
 {#if data.entries.length > 0}
